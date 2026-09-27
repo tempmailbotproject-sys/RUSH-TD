@@ -132,7 +132,7 @@ module.exports = {
 ╰──────────⟡────────╯
 
 │ 👤 *SENDER:* @${sender.split('@')[0]}
-│ 🕒 *DELETED AT:* ${new Date().toLocaleString()}
+│ 🕒 *DELETED AT:* ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo', hour12: true })}
 │ ⚠️ *RECOVERED BY:* ${config.BOT_NAME}
 ╰───────────────⬣
 💖 Made with passion by
