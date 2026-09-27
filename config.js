@@ -5,7 +5,7 @@ function convertToBool(text, fault = 'true') {
     return text === fault ? true : false;
 }
 module.exports = {
-  SESSION_ID: "7N8BHChL#GQmtZU2PwpEpAyWusLnX8xhZJXWzwIBaYxT0PvHX5wU", // Put your session id here
+  SESSION_ID: "yAkCFRYZ#K65nkVClejrLp9PVsZsXSCpori-BOps-9-BIaY3R4TQ", // Put your session id here
   ALIVE_IMG: process.env.ALIVE_IMG || "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true",
                 
   BOT_OWNER: "94775938007", // Replace your bot owner number here with 94(country code)
