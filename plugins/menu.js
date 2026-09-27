@@ -7,8 +7,12 @@ cmd({
     try {
         if (!m.quoted) return;
 
-        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
-        if (!quotedText.includes("MAIN-MENU") && !quotedText.includes("MAIN-MENU")) return;
+        // Quote කරපු මැසේජ් එකේ text හෝ caption එක ලබා ගැනීම
+        const quotedMsg = m.quoted.msg || {};
+        const quotedText = m.quoted.text || quotedMsg.text || quotedMsg.caption || m.quoted.conversation || "";
+        
+        // MAIN-MENU යන වචනය අඩංගුදැයි පරීක්ෂා කිරීම
+        if (!quotedText.includes("MAIN-MENU")) return;
 
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
@@ -20,7 +24,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "📥", key: mek.key } });
             const downloadText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨   ┃
+┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨    ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎶 *SONG* - Type: .song
 ╰➤🎼 *TIK TOK* - Type: .tt
@@ -39,7 +43,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
             const logoText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                ┃
+┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                 ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎨 *Naruto* - Type: .naruto
 ╰➤🎨 *Dragonball* - Type: .dragonball
@@ -62,7 +66,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
             const searchText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨           ┃
+┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨             ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🔍 *YouTube Search* - Type: .yts
 ╭━━━━━━━━━━━━━━━━━✦
@@ -90,7 +94,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "👥", key: mek.key } });
             const groupText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨              ┃
+┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨               ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤👢 *Kick user:* .kick
 ╰➤📢 *Tag all:* .tagall
@@ -112,7 +116,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
             const systemText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃     🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
+┃      🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤⚙️ *MENU* - Type: .menu
 ╰➤👀 *ALIVE* - Type: .alive
@@ -129,7 +133,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "📂", key: mek.key } });
             const otherText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨              ┃
+┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨               ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤💾 *Saves View Once:* .sv
 ╰➤📸 *Get profile pic:* .dp
