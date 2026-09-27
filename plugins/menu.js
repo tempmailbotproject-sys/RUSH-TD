@@ -1,33 +1,17 @@
 const { cmd } = require("../command");
 const config = require('../config');
 
-// 1. Menu Reply Handler
 cmd({
-    on: "body" // "text" වෙනුවට "body" පාවිච්චි කරමු. ගොඩක් bot base වල හැම message එකක්ම අල්ලන්නේ මේකෙන්.
+    on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        if (!m.quoted) return; // Reply එකක් නැත්තම් නවත්තන්න
+        if (!m.quoted) return;
 
-        // 2. Photo එකක Caption එක ගන්න නිවැරදිම විදිහ
-        let quotedText = "";
-        
-        if (m.quoted.caption) {
-            quotedText = m.quoted.caption;
-        } else if (m.msg?.contextInfo?.quotedMessage?.imageMessage?.caption) {
-            quotedText = m.msg.contextInfo.quotedMessage.imageMessage.caption;
-        } else if (m.quoted.text) {
-            quotedText = m.quoted.text;
-        }
+        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
 
-        if (!quotedText) return; // Caption එකක් නැත්තම් නවත්තන්න
-
-        // 3. Main Menu එකද කියලා බලන්න (වඩාත් සරලව අල්ලන්න)
-        const isMainMenu = quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") || quotedText.includes("DOWNLOAD MENU");
-        if (!isMainMenu) return;
-
-        // 4. User යවපු අංකය
         const choice = parseInt(body.trim());
-        if (isNaN(choice) || choice < 1 || choice > 7) return;
+        if (isNaN(choice)) return;
 
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
@@ -78,7 +62,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
             const searchText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨            ┃
+┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨           ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🔍 *YouTube Search* - Type: .yts
 ╭━━━━━━━━━━━━━━━━━✦
@@ -156,7 +140,7 @@ cmd({
         }
 
     } catch (err) {
-        console.error("Menu Reply Error:", err);
+        console.error(err);
     }
 });
 
