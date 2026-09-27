@@ -8,9 +8,10 @@ cmd({
     try {
         if (!m.quoted) return;
 
+        // Get quoted message text or caption safely
         const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
         
-        // Check if quoted message is the Main Menu (checking key phrases securely)
+        // Check if quoted message is the Main Menu
         if (!quotedText.includes("MAIN - MENU") && !quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("Reply with a number")) return;
 
         const cleanBody = body.replace(/[^0-9]/g, "").trim();
@@ -43,7 +44,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
             const logoText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                  ┃
+┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                    ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎨 *Naruto* - Type: .naruto
 ╰➤🎨 *Dragonball* - Type: .dragonball
@@ -66,7 +67,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
             const searchText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨            ┃
+┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨             ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🔍 *YouTube Search* - Type: .yts
 ╭━━━━━━━━━━━━━━━━━✦
@@ -94,7 +95,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "👥", key: mek.key } });
             const groupText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨               ┃
+┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨                ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤👢 *Kick user:* .kick
 ╰➤📢 *Tag all:* .tagall
@@ -116,7 +117,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
             const systemText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃      🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨             ┃
+┃      🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨               ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤⚙️ *MENU* - Type: .menu
 ╰➤👀 *ALIVE* - Type: .alive
@@ -133,7 +134,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "📂", key: mek.key } });
             const otherText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨               ┃
+┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨                ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤💾 *Saves View Once:* .sv
 ╰➤📸 *Get profile pic:* .dp
