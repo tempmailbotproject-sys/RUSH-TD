@@ -133,11 +133,11 @@ module.exports = {
 ╰──────────⟡────────╯
 
 │ 👤 *SENDER:* @${sender.split('@')[0]}
-│ 🕒 *DELETED AT:* ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo', hour12: true })}
+│ 🕒 *DELETED AT:* ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}
 │ ⚠️ *RECOVERED BY:* ${config.BOT_NAME}
 ╰───────────────⬣
 💖 Made with passion by
-╰${config.OWNER_NAME}`;
+╰─ ${config.OWNER_NAME}🔥`;
 
       try {
         const mediaPath = mediaStore.get(keyId);
