@@ -2,20 +2,29 @@ const { cmd } = require("../command");
 const config = require('../config');
 
 cmd({
-    on: "text" 
+    on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        // 1. Message එක අනිවාර්යයෙන්ම reply එකක්ද කියලා හරියටම check කිරීම (හිස් object එකක් ආවත් නවත්තන්න)
-        if (!m.quoted || (Object.keys(m.quoted).length === 0)) return;
+        // 1. Reply එකක් නැත්තම් නවත්තන්න
+        if (!m.quoted) return;
+
+        // 2. Photo එකක Caption එකක්ද, නැත්තම් සාමාන්‍ය Text එකක්ද කියලා බලලා හරියටම Quoted Text එක ගන්න
+        let quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || m.quoted.msg || "";
         
-        // 2. Reply කරපු message එකේ text එක ගන්න
-        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || m.quoted.msg || "";
-        
-        // 3. ඒ text එක ඇතුලේ "MAIN - MENU" වචනෙ තියෙනවද බැලීම
+        // (සමහර bot base වල image caption එන්නේ මේ විදියටයි)
+        if (!quotedText && m.msg?.contextInfo?.quotedMessage?.imageMessage?.caption) {
+            quotedText = m.msg.contextInfo.quotedMessage.imageMessage.caption;
+        }
+
+        if (!quotedText) return; // Quoted text එකක් ඇත්තෙම නැත්තම් නවත්තන්න
+
+        // 3. ඒක Main Menu එකද කියලා බලන්න
         if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
 
-        // 4. User type කරපු එක අංකයක්ද සහ ඒක 1 ත් 7 ත් අතර එකක්ද කියලා බැලීම
-        const choice = parseInt(body.trim());
+        // 4. User type කරපු අංකය ගන්න (body හෝ m.text පාවිච්චි කරලා)
+        const userText = body || m.text || "";
+        const choice = parseInt(userText.trim());
+        
         if (isNaN(choice) || choice < 1 || choice > 7) return;
 
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
@@ -145,47 +154,6 @@ cmd({
         }
 
     } catch (err) {
-        console.error(err);
+        console.error("Menu Reply Error:", err);
     }
 });
-
-// 2. Main .menu Command
-cmd(
-  {
-    pattern: "menu",
-    react: "⚙️",
-    filename: __filename,
-  },
-  async (rush, mek, m, { from, reply }) => {
-    try {
-      const menuText =
-`╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
-┃     💠 *Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*     ┃
-┃━━━━━━━━━━━━━━━━━━━✦
-│
-├─ 1️⃣ ⭔ *DOWNLOAD MENU*
-├─ 2️⃣ ⭔ *LOGO MENU*
-├─ 3️⃣ ⭔ *SEARCH MENU*
-├─ 4️⃣ ⭔ *CREATOR INFO*
-├─ 5️⃣ ⭔ *GROUP MENU*
-├─ 6️⃣ ⭔ *SYSTEM MENU*
-├─ 7️⃣ ⭔ *OTHER MENU*
-│
-╰➤ 💡 *Reply with a number (1-7) to get menu!*
-╭━━━━━━━━━━━━━━━━━━━✦
-┃ ⚙️ Made with ❤️ by
-╰─ ${config.OWNER_NAME}🔥`.trim();
-
-      const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
-
-      await rush.sendMessage(from, {
-        image: { url: imageUrl },
-        caption: menuText,
-      }, { quoted: mek });
-
-    } catch (err) {
-      console.error(err);
-      reply("❌ Error generating menu.");
-    }
-  }
-);
