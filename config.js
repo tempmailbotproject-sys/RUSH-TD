@@ -7,17 +7,6 @@ function convertToBool(text, fault = 'true') {
 module.exports = {
   SESSION_ID: "7N8BHChL#GQmtZU2PwpEpAyWusLnX8xhZJXWzwIBaYxT0PvHX5wU", // Put your session id here
   ALIVE_IMG: process.env.ALIVE_IMG || "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true",
-  ALIVE_MSG: process.env.ALIVE_MSG || `╭───〔 🤖 *Bot Status* 〕───⬣
-│
-│ 🔹 *Bot Name:* ${config.BOT_NAME}
-│ 🔹 *Status:* Online & Active
-│ 🔹 *Ping:* ${ping} ms
-│ 🔹 *Uptime:* ${uptime}
-│ 🔹 *Owner:* ${config.OWNER_NAME}
-│ 🔹 *Version:* ${config.VERSION}
-│
-╰───────────────⬣
-🚀 Powered By  ${config.BOT_NAME || '*RAMESH DISSANAYAKA* 🔥,`
                 
   BOT_OWNER: "94775938007", // Replace your bot owner number here with 94(country code)
   BOT_NAME: process.env.BOT_NAME || "𝐑𝐔𝐒𝐇-𝐓𝐃",
