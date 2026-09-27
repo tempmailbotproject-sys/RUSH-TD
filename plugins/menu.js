@@ -1,27 +1,26 @@
 const { cmd } = require("../command");
 const config = require('../config');
 
-// 1. Menu Reply Event Listener
 cmd({
     on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
+        // Reply කරපු message එකක් නැත්නම් මුකුත් කරන්න එපා (නිකන් ඉලක්කම් ගැහුවට වැඩ කරන්නේ නෑ)
         if (!m.quoted) return;
 
-        // Message caption / text එක නිවැරදිව ලබා ගැනීම
+        // Quoted message එකේ Text/Caption එක ලබා ගැනීම
         const quotedText = m.quoted.text || 
                            m.quoted.caption || 
                            m.quoted.conversation || 
                            (m.quoted.message ? (m.quoted.message.imageMessage?.caption || m.quoted.message.conversation || m.quoted.message.extendedTextMessage?.text) : "") || "";
 
-        // Main Menu එකටම කරපු reply එකක්දැයි පරීක්ෂා කිරීම
+        // Reply කරපු Message එකේ MAIN MENU එක තියෙනවද කියල විතරක් බලනවා
         if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
-
+        
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
 
-        // Direct Raw GitHub Image Links
-        const imageUrl = "https://raw.githubusercontent.com/rush1617/RUSH-TD/main/images/Alive.png";
+        const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
         // 1️⃣ DOWNLOAD MENU
         if (choice === 1) {
@@ -70,7 +69,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
             const searchText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨            ┃
+┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨           ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🔍 *YouTube Search* - Type: .yts
 ╭━━━━━━━━━━━━━━━━━✦
@@ -90,7 +89,7 @@ cmd({
 ╰───────────────⬣
 🚀 Powered By
 ╰─ ${config.OWNER_NAME}🔥`;
-            const ownerImg = "https://raw.githubusercontent.com/rush1617/RUSH-TD/main/images/Ramesh%20Dissanayaka.jpg";
+            const ownerImg = "https://github.com/rush1617/RUSH-TD/blob/main/images/Ramesh%20Dissanayaka.jpg?raw=true";
             return await rush.sendMessage(from, { image: { url: ownerImg }, caption: ownerText }, { quoted: mek });
 
         // 5️⃣ GROUP MENU
@@ -179,7 +178,7 @@ cmd(
 ┃ ⚙️ Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`.trim();
 
-      const imageUrl = "https://raw.githubusercontent.com/rush1617/RUSH-TD/main/images/main-menu.png";
+      const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
 
       await rush.sendMessage(from, {
         image: { url: imageUrl },
