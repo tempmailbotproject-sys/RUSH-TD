@@ -7,8 +7,8 @@ cmd({
     try {
         if (!m.quoted) return;
 
-        const quotedText = m.quoted.text || "";
-        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ")) return;
+        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
 
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
