@@ -133,10 +133,10 @@ module.exports = {
 
 │ 👤 *SENDER:* @${sender.split('@')[0]}
 │ 🕒 *DELETED AT:* ${new Date().toLocaleString()}
-│ ⚠️ *RECOVERED BY:* RUSH-TD
+│ ⚠️ *RECOVERED BY:* ${config.BOT_NAME}
 ╰───────────────⬣
 💖 Made with passion by
-╰🔥 𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔 🔥`;
+╰${config.OWNER_NAME}`;
 
       try {
         const mediaPath = mediaStore.get(keyId);
