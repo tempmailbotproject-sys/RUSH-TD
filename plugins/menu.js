@@ -2,16 +2,21 @@ const { cmd } = require("../command");
 const config = require('../config');
 
 cmd({
-    on: "text"
+    on: "text" 
 }, async (rush, mek, m, { from, body }) => {
     try {
-        if (!m.quoted) return;
-
-        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        // 1. Message එක අනිවාර්යයෙන්ම reply එකක්ද කියලා හරියටම check කිරීම (හිස් object එකක් ආවත් නවත්තන්න)
+        if (!m.quoted || (Object.keys(m.quoted).length === 0)) return;
+        
+        // 2. Reply කරපු message එකේ text එක ගන්න
+        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || m.quoted.msg || "";
+        
+        // 3. ඒ text එක ඇතුලේ "MAIN - MENU" වචනෙ තියෙනවද බැලීම
         if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
 
+        // 4. User type කරපු එක අංකයක්ද සහ ඒක 1 ත් 7 ත් අතර එකක්ද කියලා බැලීම
         const choice = parseInt(body.trim());
-        if (isNaN(choice)) return;
+        if (isNaN(choice) || choice < 1 || choice > 7) return;
 
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
@@ -62,7 +67,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
             const searchText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨           ┃
+┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨            ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🔍 *YouTube Search* - Type: .yts
 ╭━━━━━━━━━━━━━━━━━✦
