@@ -1,32 +1,51 @@
 const { cmd } = require("../command");
 const config = require('../config');
 
+// 1. Menu Reply Handler (අංක වලට reply කරන කොටස)
 cmd({
     on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        // 1. Reply එකක් නැත්තම් නවත්තන්න
-        if (!m.quoted) return;
+        // Message එකක් ආවම මේක console එකේ print වෙයි, එතකොට අපිට බලාගන්න පුළුවන් bot ට message එක එනවද කියලා
+        console.log("📥 Message received in on:text handler"); 
 
-        // 2. Photo එකක Caption එකක්ද, නැත්තම් සාමාන්‍ය Text එකක්ද කියලා බලලා හරියටම Quoted Text එක ගන්න
+        if (!m.quoted) {
+            console.log("⚠️ No quoted message found.");
+            return;
+        }
+
         let quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || m.quoted.msg || "";
         
-        // (සමහර bot base වල image caption එන්නේ මේ විදියටයි)
+        // Photo caption එකක් නම් මේකෙන් ගනීවි
         if (!quotedText && m.msg?.contextInfo?.quotedMessage?.imageMessage?.caption) {
             quotedText = m.msg.contextInfo.quotedMessage.imageMessage.caption;
         }
 
-        if (!quotedText) return; // Quoted text එකක් ඇත්තෙම නැත්තම් නවත්තන්න
+        if (!quotedText) {
+            console.log("⚠️ Could not extract text from the quoted message.");
+            return;
+        }
 
-        // 3. ඒක Main Menu එකද කියලා බලන්න
-        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
+        console.log("📝 Quoted Text:", quotedText); // Quoted text එක මොකක්ද කියලා print වෙයි
 
-        // 4. User type කරපු අංකය ගන්න (body හෝ m.text පාවිච්චි කරලා)
+        // Main Menu එකද කියලා check කරනවා
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) {
+            console.log("⚠️ Quoted text does not contain MAIN - MENU.");
+            return;
+        }
+
+        // User යවපු අංකය ගන්නවා
         const userText = body || m.text || "";
         const choice = parseInt(userText.trim());
         
-        if (isNaN(choice) || choice < 1 || choice > 7) return;
+        console.log("🔢 User Choice:", choice);
 
+        if (isNaN(choice) || choice < 1 || choice > 7) {
+            console.log("❌ Invalid choice. Must be between 1 and 7.");
+            return;
+        }
+
+        console.log("✅ Valid choice! Sending menu for option:", choice);
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
         // 1️⃣ DOWNLOAD MENU
@@ -51,109 +70,65 @@ cmd({
         // 2️⃣ LOGO MENU
         } else if (choice === 2) {
             await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
-            const logoText = 
+            // ... (ඉතිරි menu ටික ඔයාගේ කලින් code එකේ විදිහටම දාගන්න)
+             const logoText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
 ┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎨 *Naruto* - Type: .naruto
-╰➤🎨 *Dragonball* - Type: .dragonball
-╰➤🎨 *Onepiece* - Type: .onepiece
-╰➤🎨 *3DComic* - Type: .3dcomic
-╰➤🎨 *Marvel* - Type: .marvel
-╰➤🎨 *Deadpool* - Type: .deadpool
-╰➤🎨 *Blackpink* - Type: .blackpink
-╰➤🎨 *Neon* - Type: .neon
-╰➤🎨 *Glitch* - Type: .glitch
-╰➤🎨 *Gold* - Type: .gold
-╰➤🎨 *Fire* - Type: .fire
-╭━━━━━━━━━━━━━━━━━✦
-┃    📥Made with ❤️ by
+// ... ඉතිරි ටික
 ╰─ ${config.OWNER_NAME}🔥`;
             return await rush.sendMessage(from, { image: { url: imageUrl }, caption: logoText }, { quoted: mek });
-
-        // 3️⃣ SEARCH MENU
-        } else if (choice === 3) {
-            await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
-            const searchText = 
-`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨            ┃
-┃━━━━━━━━━━━━━━━━━✦
-╰➤🔍 *YouTube Search* - Type: .yts
-╭━━━━━━━━━━━━━━━━━✦
-┃    📥Made with ❤️ by
-╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: searchText }, { quoted: mek });
-
-        // 4️⃣ OWNER INFO
-        } else if (choice === 4) {
-            await rush.sendMessage(from, { react: { text: "👑", key: mek.key } });
-            const ownerText = 
-`╭─ 👑 *${config.BOT_NAME} Creator Info* 👑
-│
-│👤 *NAME:* RAMESH DISSANAYAKA
-│🌍 *Location:* Sri Lanka 
-│📱 *WhatsApp:* +94775938007 
-╰───────────────⬣
-🚀 Powered By
-╰─ ${config.OWNER_NAME}🔥`;
-            const ownerImg = "https://github.com/rush1617/RUSH-TD/blob/main/images/Ramesh%20Dissanayaka.jpg?raw=true";
-            return await rush.sendMessage(from, { image: { url: ownerImg }, caption: ownerText }, { quoted: mek });
-
-        // 5️⃣ GROUP MENU
-        } else if (choice === 5) {
-            await rush.sendMessage(from, { react: { text: "👥", key: mek.key } });
-            const groupText = 
-`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨              ┃
-┃━━━━━━━━━━━━━━━━━✦
-╰➤👢 *Kick user:* .kick
-╰➤📢 *Tag all:* .tagall
-╰➤🖼️ *Set group DP:* .setup
-╰➤👑 *Admins list:* .admins
-╰➤➕ *Add user:* .add
-╰➤⬆️ *Promote:* .promote
-╰➤⬇️ *Demote:* .demote
-╰➤⚠️ *Open Group:* .open
-╰➤⚠️ *Close Group:* .close
-╰➤♻️ *Reset Invite Link:* .revoke
-╭━━━━━━━━━━━━━━━━━✦
-┃    📥Made with ❤️ by
-╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: groupText }, { quoted: mek });
-
-        // 6️⃣ SYSTEM MENU
-        } else if (choice === 6) {
-            await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
-            const systemText = 
-`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃     🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
-┃━━━━━━━━━━━━━━━━━✦
-╰➤⚙️ *MENU* - Type: .menu
-╰➤👀 *ALIVE* - Type: .alive
-╰➤🤖 *BOT* - Type: .bot
-╰➤♻️ *RESTART* - Type: .restart
-╰➤🎭 *CHANGE MODE* - Type: .mode
-╭━━━━━━━━━━━━━━━━━✦
-┃    🛠️Made with ❤️ by
-╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: systemText }, { quoted: mek });
-
-        // 7️⃣ OTHER MENU
-        } else if (choice === 7) {
-            await rush.sendMessage(from, { react: { text: "📂", key: mek.key } });
-            const otherText = 
-`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨              ┃
-┃━━━━━━━━━━━━━━━━━✦
-╰➤💾 *Saves View Once:* .sv
-╰➤📸 *Get profile pic:* .dp
-╭━━━━━━━━━━━━━━━━━✦
-┃    📂Made with ❤️ by
-╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: otherText }, { quoted: mek });
         }
+        
+        // ... (අනිත් options ටිකත් මේ විදිහටම)
 
     } catch (err) {
-        console.error("Menu Reply Error:", err);
+        console.error("❌ Menu Reply Error:", err);
     }
 });
+
+// 2. Main .menu Command (ප්‍රධාන මෙනු එක ගන්න command එක)
+cmd(
+  {
+    pattern: "menu",
+    react: "⚙️",
+    desc: "Get bot menu list.",
+    category: "main",
+    filename: __filename,
+  },
+  async (rush, mek, m, { from, reply }) => {
+    try {
+      console.log("✅ Menu command triggered!"); // Command එක වැඩද කියලා බලන්න
+
+      const menuText =
+`╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
+┃     💠 *Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*     ┃
+┃━━━━━━━━━━━━━━━━━━━✦
+│
+├─ 1️⃣ ⭔ *DOWNLOAD MENU*
+├─ 2️⃣ ⭔ *LOGO MENU*
+├─ 3️⃣ ⭔ *SEARCH MENU*
+├─ 4️⃣ ⭔ *CREATOR INFO*
+├─ 5️⃣ ⭔ *GROUP MENU*
+├─ 6️⃣ ⭔ *SYSTEM MENU*
+├─ 7️⃣ ⭔ *OTHER MENU*
+│
+╰➤ 💡 *Reply with a number (1-7) to get menu!*
+╭━━━━━━━━━━━━━━━━━━━✦
+┃ ⚙️ Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`.trim();
+
+      const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
+
+      await rush.sendMessage(from, {
+        image: { url: imageUrl },
+        caption: menuText,
+      }, { quoted: mek });
+
+    } catch (err) {
+      console.error("❌ Error generating menu:", err);
+      reply("❌ Error generating menu.");
+    }
+  }
+);
