@@ -5,17 +5,32 @@ cmd({
     on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        if (!m.quoted) return;
-
-        // Quote කරපු මැසේජ් එකේ text හෝ caption එක ලබා ගැනීම
-        const quotedMsg = m.quoted.msg || {};
-        const quotedText = m.quoted.text || quotedMsg.text || quotedMsg.caption || m.quoted.conversation || "";
+        console.log("-----------------------------------------");
+        console.log("Incoming message body:", body);
         
-        // MAIN-MENU යන වචනය අඩංගුදැයි පරීක්ෂා කිරීම
-        if (!quotedText.includes("MAIN-MENU")) return;
+        if (!m.quoted) {
+            console.log("Status: No quoted message found!");
+            return;
+        }
+
+        // Quote කරපු මැසේජ් එකේ විස්තර ලබා ගැනීම සහ පරීක්ෂා කිරීම
+        const quotedMsg = m.quoted.msg || m.quoted;
+        const quotedText = quotedMsg.text || quotedMsg.caption || m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        
+        console.log("Status: Quoted Text detected ->", quotedText);
+
+        if (!quotedText.includes("MAIN-MENU")) {
+            console.log("Status: 'MAIN-MENU' not found in quoted text!");
+            return;
+        }
 
         const choice = parseInt(body.trim());
-        if (isNaN(choice)) return;
+        console.log("Status: Parsed choice number ->", choice);
+        
+        if (isNaN(choice)) {
+            console.log("Status: Choice is NaN (Not a Number)!");
+            return;
+        }
 
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
@@ -144,7 +159,7 @@ cmd({
         }
 
     } catch (err) {
-        console.error(err);
+        console.error("Menu Error:", err);
     }
 });
 
