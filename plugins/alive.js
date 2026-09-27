@@ -38,7 +38,7 @@ async (conn, mek, m, {
 │
 ╰───────────────⬣
 🚀 Powered By
-${config.OWNER_NAME}
+╰─${config.OWNER_NAME}🔥
         `.trim();
 
         return await conn.sendMessage(from, {
