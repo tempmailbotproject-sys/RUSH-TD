@@ -5,18 +5,11 @@ cmd({
     on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        // Reply කරපු message එකක් නැත්නම් මුකුත් කරන්න එපා (නිකන් ඉලක්කම් ගැහුවට වැඩ කරන්නේ නෑ)
         if (!m.quoted) return;
 
-        // Quoted message එකේ Text/Caption එක ලබා ගැනීම
-        const quotedText = m.quoted.text || 
-                           m.quoted.caption || 
-                           m.quoted.conversation || 
-                           (m.quoted.message ? (m.quoted.message.imageMessage?.caption || m.quoted.message.conversation || m.quoted.message.extendedTextMessage?.text) : "") || "";
+        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
 
-        // Reply කරපු Message එකේ MAIN MENU එක තියෙනවද කියල විතරක් බලනවා
-        if (!quotedText.includes("*Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*") && !quotedText.includes("MAIN - MENU")) return;
-        
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
 
