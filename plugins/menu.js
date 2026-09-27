@@ -1,4 +1,4 @@
-const { cmd, replyHandlers } = require("../command");
+const { cmd, commands } = require("../command");
 const config = require('../config');
 
 // 1. Main .menu Command
@@ -42,15 +42,21 @@ cmd(
   }
 );
 
-// 2. Reply Handler for Menu Numbers
-replyHandlers.push({
-  filter: (text, { message }) => {
-    if (!message.quoted) return false;
-    const quotedText = message.quoted.text || message.quoted.caption || message.quoted.conversation || "";
-    return quotedText.includes("MAIN - MENU") || quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") || quotedText.includes("Reply with a number");
+// 2. Direct Text Listener for Menu Numbers
+cmd(
+  {
+    on: "text",
+    filename: __filename,
   },
-  function: async (rush, mek, m, { from, body, reply }) => {
+  async (rush, mek, m, { from, body }) => {
     try {
+      if (!m.quoted) return;
+
+      const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+      
+      // Check if the quoted message is the Main Menu
+      if (!quotedText.includes("MAIN - MENU") && !quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("Reply with a number")) return;
+
       const cleanBody = body.replace(/[^0-9]/g, "").trim();
       const choice = parseInt(cleanBody);
       if (isNaN(choice)) return;
@@ -178,4 +184,4 @@ replyHandlers.push({
       console.error(err);
     }
   }
-});
+);
