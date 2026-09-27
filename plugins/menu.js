@@ -5,32 +5,13 @@ cmd({
     on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        console.log("-----------------------------------------");
-        console.log("Incoming message body:", body);
-        
-        if (!m.quoted) {
-            console.log("Status: No quoted message found!");
-            return;
-        }
+        if (!m.quoted) return;
 
-        // Quote කරපු මැසේජ් එකේ විස්තර ලබා ගැනීම සහ පරීක්ෂා කිරීම
-        const quotedMsg = m.quoted.msg || m.quoted;
-        const quotedText = quotedMsg.text || quotedMsg.caption || m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
-        
-        console.log("Status: Quoted Text detected ->", quotedText);
-
-        if (!quotedText.includes("MAIN-MENU")) {
-            console.log("Status: 'MAIN-MENU' not found in quoted text!");
-            return;
-        }
+        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
 
         const choice = parseInt(body.trim());
-        console.log("Status: Parsed choice number ->", choice);
-        
-        if (isNaN(choice)) {
-            console.log("Status: Choice is NaN (Not a Number)!");
-            return;
-        }
+        if (isNaN(choice)) return;
 
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
@@ -39,7 +20,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "📥", key: mek.key } });
             const downloadText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨    ┃
+┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨   ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎶 *SONG* - Type: .song
 ╰➤🎼 *TIK TOK* - Type: .tt
@@ -58,7 +39,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
             const logoText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                 ┃
+┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎨 *Naruto* - Type: .naruto
 ╰➤🎨 *Dragonball* - Type: .dragonball
@@ -81,7 +62,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
             const searchText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨             ┃
+┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨           ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🔍 *YouTube Search* - Type: .yts
 ╭━━━━━━━━━━━━━━━━━✦
@@ -109,7 +90,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "👥", key: mek.key } });
             const groupText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨               ┃
+┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨              ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤👢 *Kick user:* .kick
 ╰➤📢 *Tag all:* .tagall
@@ -131,7 +112,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
             const systemText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃      🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
+┃     🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤⚙️ *MENU* - Type: .menu
 ╰➤👀 *ALIVE* - Type: .alive
@@ -148,7 +129,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "📂", key: mek.key } });
             const otherText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨               ┃
+┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨              ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤💾 *Saves View Once:* .sv
 ╰➤📸 *Get profile pic:* .dp
@@ -159,7 +140,7 @@ cmd({
         }
 
     } catch (err) {
-        console.error("Menu Error:", err);
+        console.error(err);
     }
 });
 
@@ -174,7 +155,7 @@ cmd(
     try {
       const menuText =
 `╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
-┃     💠 MAIN-MENU     ┃
+┃     💠 *Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*     ┃
 ┃━━━━━━━━━━━━━━━━━━━✦
 │
 ├─ 1️⃣ ⭔ *DOWNLOAD MENU*
