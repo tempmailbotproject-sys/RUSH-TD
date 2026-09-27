@@ -127,17 +127,21 @@ module.exports = {
       const from = key.remoteJid;
       const sender = key.participant || from;
 
-      let caption =
+const currentDate = new Date().toLocaleDateString('en-US', { timeZone: 'Asia/Colombo' });
+const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Colombo', hour12: true });
+
+let caption =
 `╭──────  ⭓ ⭓ ⭓ ───────╮
 │🗑️ *MESSAGE RECOVERED* 🗑️│     
 ╰──────────⟡────────╯
 
 │ 👤 *SENDER:* @${sender.split('@')[0]}
-│ 🕒 *DELETED AT:* ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}
+│ 📅 *DATE:* ${currentDate}
+│ 🕒 *TIME:* ${currentTime}
 │ ⚠️ *RECOVERED BY:* ${config.BOT_NAME}
 ╰───────────────⬣
 💖 Made with passion by
-╰─ ${config.OWNER_NAME}🔥`;
+╰${config.OWNER_NAME}`;
 
       try {
         const mediaPath = mediaStore.get(keyId);
