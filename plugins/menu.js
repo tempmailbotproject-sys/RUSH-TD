@@ -15,7 +15,7 @@ cmd({
                            (m.quoted.message ? (m.quoted.message.imageMessage?.caption || m.quoted.message.conversation || m.quoted.message.extendedTextMessage?.text) : "") || "";
 
         // Reply කරපු Message එකේ MAIN MENU එක තියෙනවද කියල විතරක් බලනවා
-        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
+        if (!quotedText.includes("*Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*") && !quotedText.includes("MAIN - MENU")) return;
         
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
