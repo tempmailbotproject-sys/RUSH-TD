@@ -264,56 +264,6 @@ if (mek.key?.remoteJid === 'status@broadcast') {
 
     const reply = (text) => rush.sendMessage(from, { text }, { quoted: mek });
 
-    // Direct Text Handler for Menu Number Replies
-    if (m.quoted) {
-        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
-        if (quotedText.includes("MAIN - MENU") || quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") || quotedText.includes("Reply with a number")) {
-            const cleanBody = body.replace(/[^0-9]/g, "").trim();
-            const choice = parseInt(cleanBody);
-            
-            if (!isNaN(choice) && choice >= 1 && choice <= 7) {
-                const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
-
-                if (choice === 1) {
-                    await rush.sendMessage(from, { react: { text: "📥", key: mek.key } });
-                    const downloadText = `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮\n┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨    ┃\n┃━━━━━━━━━━━━━━━━━✦\n╰➤🎶 *SONG* - Type: .song\n╰➤🎼 *TIK TOK* - Type: .tt\n╰➤📼 *YOUTUBE* - Type: .yt\n╰➤📘 *FACEBOOK* - Type: .fb\n╰➤📍 *APK* - Type: .apk\n╰➤🖼️ *WALLPAPER* - Type: .wp\n╰➤📌 *PINTEREST* - Type: .pin\n╭━━━━━━━━━━━━━━━━━✦\n┃    📥Made with ❤️ by\n╰─ ${config.OWNER_NAME}🔥`;
-                    return await rush.sendMessage(from, { image: { url: imageUrl }, caption: downloadText }, { quoted: mek });
-
-                } else if (choice === 2) {
-                    await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
-                    const logoText = `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮\n┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                    ┃\n┃━━━━━━━━━━━━━━━━━✦\n╰➤🎨 *Naruto* - Type: .naruto\n╰➤🎨 *Dragonball* - Type: .dragonball\n╰➤🎨 *Onepiece* - Type: .onepiece\n╰➤🎨 *3DComic* - Type: .3dcomic\n╰➤🎨 *Marvel* - Type: .marvel\n╰➤🎨 *Deadpool* - Type: .deadpool\n╰➤🎨 *Blackpink* - Type: .blackpink\n╰➤🎨 *Neon* - Type: .neon\n╰➤🎨 *Glitch* - Type: .glitch\n╰➤🎨 *Gold* - Type: .gold\n╰➤🎨 *Fire* - Type: .fire\n╭━━━━━━━━━━━━━━━━━✦\n┃    📥Made with ❤️ by\n╰─ ${config.OWNER_NAME}🔥`;
-                    return await rush.sendMessage(from, { image: { url: imageUrl }, caption: logoText }, { quoted: mek });
-
-                } else if (choice === 3) {
-                    await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
-                    const searchText = `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮\n┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨             ┃\n┃━━━━━━━━━━━━━━━━━✦\n╰➤🔍 *YouTube Search* - Type: .yts\n╭━━━━━━━━━━━━━━━━━✦\n┃    📥Made with ❤️ by\n╰─ ${config.OWNER_NAME}🔥`;
-                    return await rush.sendMessage(from, { image: { url: imageUrl }, caption: searchText }, { quoted: mek });
-
-                } else if (choice === 4) {
-                    await rush.sendMessage(from, { react: { text: "👑", key: mek.key } });
-                    const ownerText = `╭─ 👑 *${config.BOT_NAME} Creator Info* 👑\n│\n│👤 *NAME:* RAMESH DISSANAYAKA\n│🌍 *Location:* Sri Lanka \n│📱 *WhatsApp:* +94775938007 \n╰───────────────⬣\n🚀 Powered By\n╰─ ${config.OWNER_NAME}🔥`;
-                    const ownerImg = "https://github.com/rush1617/RUSH-TD/blob/main/images/Ramesh%20Dissanayaka.jpg?raw=true";
-                    return await rush.sendMessage(from, { image: { url: ownerImg }, caption: ownerText }, { quoted: mek });
-
-                } else if (choice === 5) {
-                    await rush.sendMessage(from, { react: { text: "👥", key: mek.key } });
-                    const groupText = `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮\n┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨                ┃\n┃━━━━━━━━━━━━━━━━━✦\n╰➤👢 *Kick user:* .kick\n╰➤📢 *Tag all:* .tagall\n╰➤🖼️ *Set group DP:* .setup\n╰➤👑 *Admins list:* .admins\n╰➤➕ *Add user:* .add\n╰➤⬆️ *Promote:* .promote\n╰➤⬇️ *Demote:* .demote\n╰➤⚠️ *Open Group:* .open\n╰➤⚠️ *Close Group:* .close\n╰➤♻️ *Reset Invite Link:* .revoke\n╭━━━━━━━━━━━━━━━━━✦\n┃    📥Made with ❤️ by\n╰─ ${config.OWNER_NAME}🔥`;
-                    return await rush.sendMessage(from, { image: { url: imageUrl }, caption: groupText }, { quoted: mek });
-
-                } else if (choice === 6) {
-                    await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
-                    const systemText = `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮\n┃      🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨               ┃\n┃━━━━━━━━━━━━━━━━━✦\n╰➤⚙️ *MENU* - Type: .menu\n╰➤👀 *ALIVE* - Type: .alive\n╰➤🤖 *BOT* - Type: .bot\n╰➤♻️ *RESTART* - Type: .restart\n╰➤🎭 *CHANGE MODE* - Type: .mode\n╭━━━━━━━━━━━━━━━━━✦\n┃    🛠️Made with ❤️ by\n╰─ ${config.OWNER_NAME}🔥`;
-                    return await rush.sendMessage(from, { image: { url: imageUrl }, caption: systemText }, { quoted: mek });
-
-                } else if (choice === 7) {
-                    await rush.sendMessage(from, { react: { text: "📂", key: mek.key } });
-                    const otherText = `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮\n┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨                ┃\n┃━━━━━━━━━━━━━━━━━✦\n╰➤💾 *Saves View Once:* .sv\n╰➤📸 *Get profile pic:* .dp\n╭━━━━━━━━━━━━━━━━━✦\n┃    📂Made with ❤️ by\n╰─ ${config.OWNER_NAME}🔥`;
-                    return await rush.sendMessage(from, { image: { url: imageUrl }, caption: otherText }, { quoted: mek });
-                }
-            }
-        }
-    }
-
     if (isCmd) {
       const cmd = commands.find((c) => c.pattern === commandName || (c.alias && c.alias.includes(commandName)));
       if (cmd) {
