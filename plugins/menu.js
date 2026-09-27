@@ -8,7 +8,7 @@ cmd({
         if (!m.quoted) return;
 
         const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
-        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
+        if (!quotedText.includes("MAIN-MENU") && !quotedText.includes("MAIN - MENU")) return;
 
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
@@ -155,7 +155,7 @@ cmd(
     try {
       const menuText =
 `╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
-┃     💠 *Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*     ┃
+┃     💠 MAIN-MENU     ┃
 ┃━━━━━━━━━━━━━━━━━━━✦
 │
 ├─ 1️⃣ ⭔ *DOWNLOAD MENU*
