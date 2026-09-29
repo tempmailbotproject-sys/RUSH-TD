@@ -1,22 +1,21 @@
 const { cmd } = require("../command");
 const config = require('../config');
 
+// 1. Reply Handler (When user replies with a number to the Main Menu)
 cmd({
-    on: "text"
-}, async (rush, mek, m, { from, body }) => {
-    try {
-        if (!m.quoted) return;
-
-        // Quoted පණිවිඩයේ ටෙක්ස්ට් එක ලබා ගැනීම
-        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+    filter: (text, { message }) => {
+        if (!message.quoted) return false;
+        const quotedText = message.quoted.text || message.quoted.caption || message.quoted.conversation || "";
+        // Check if the quoted message is the Main Menu
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨") && !quotedText.includes("MAIN - MENU")) return false;
         
-        // Main Menu එකට පමණක් අංක ක්‍රියාත්මක වන සේ පරීක්ෂා කිරීම
-        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
-
-        // යැවූ අංකය පිරිසිදු කර අංකයක් බව තහවුරු කර ගැනීම
+        // Check if the body text is a valid number between 1 and 7
+        const choice = parseInt(text.trim());
+        return !isNaN(choice) && choice >= 1 && choice <= 7;
+    }
+}, async (rush, mek, m, { from, body, reply, sender }) => {
+    try {
         const choice = parseInt(body.trim());
-        if (isNaN(choice)) return;
-
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
         // 1️⃣ DOWNLOAD MENU
@@ -43,7 +42,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
             const logoText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                   ┃
+┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                    ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎨 *Naruto* - Type: .naruto
 ╰➤🎨 *Dragonball* - Type: .dragonball
@@ -105,7 +104,7 @@ cmd({
 ╰➤⬇️ *Demote:* .demote
 ╰➤⚠️ *Open Group:* .open
 ╰➤⚠️ *Close Group:* .close
-╰➤♻️ *Reset Invite Link:* .revoke
+╰➤♻️️ *Reset Invite Link:* .revoke
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    📥Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
@@ -144,7 +143,7 @@ cmd({
         }
 
     } catch (err) {
-        console.error("Error in menu text handler:", err);
+        console.error("Error in menu reply handler:", err);
     }
 });
 
@@ -172,7 +171,7 @@ cmd(
 │
 ╰➤ 💡 *Reply with a number (1-7) to get menu!*
 ╭━━━━━━━━━━━━━━━━━━━✦
-┃ ⚙️ Made with ❤️ by
+┃ ⚙️ Made with ❤️️ by
 ╰─ ${config.OWNER_NAME}🔥`.trim();
 
       const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
