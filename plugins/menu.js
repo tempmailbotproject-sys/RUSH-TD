@@ -1,20 +1,62 @@
 const { cmd } = require("../command");
 const config = require('../config');
 
+// 1. Main .menu Command
+cmd(
+  {
+    pattern: "menu",
+    react: "⚙️️",
+    filename: __filename,
+  },
+  async (rush, mek, m, { from, reply }) => {
+    try {
+      const menuText =
+`╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
+┃     💠 *Ｍ Ａ Ｉ 🇳 - 𝗠 𝗘 𝗡 𝗨*     ┃
+┃━━━━━━━━━━━━━━━━━━━✦
+│
+├─ 1️⃣ ⭔ *DOWNLOAD MENU*
+├─ 2️⃣ ⭔ *LOGO MENU*
+├─ 3️⃣ ⭔ *SEARCH MENU*
+├─ 4️⃣ ⭔ *CREATOR INFO*
+├─ 5️⃣ ⭔ *GROUP MENU*
+├─ 6️⃣ ⭔ *SYSTEM MENU*
+├─ 7️⃣ ⭔ *OTHER MENU*
+│
+╰➤ 💡 *Reply with a number (1-7) to get menu!*
+╭━━━━━━━━━━━━━━━━━━━✦
+┃ ⚙️ Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`.trim();
+
+      const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
+
+      await rush.sendMessage(from, {
+        image: { url: imageUrl },
+        caption: menuText,
+      }, { quoted: mek });
+
+    } catch (err) {
+      console.error("Error in .menu command:", err);
+      reply("❌ Error generating menu.");
+    }
+  }
+);
+
+// 2. Number Reply Handler using standard text check
 cmd({
     on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        // m.quoted තියෙනවද බලන්න (lib/msg.js එකෙන් හැදුණු m object එක පාවිච්චි කරමු)
+        // Check if message is a reply
         if (!m.quoted) return;
 
-        // Quoted පණිවිඩයේ ටෙක්ස්ට් එක ලබා ගැනීම
+        // Get quoted text safely
         const quotedText = m.quoted.msg || m.quoted.text || m.quoted.caption || "";
         
-        // Main Menu එකටම රිප්ලයි කරලා තියෙනවද බැලීම
-        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨") && !quotedText.includes("MAIN - MENU")) return;
+        // Check if user is replying to the Main Menu
+        if (!quotedText.includes("Ｍ Ａ Ｉ 🇳 - 𝗠 𝗘 𝗡 𝗨") && !quotedText.includes("MAIN - MENU")) return;
 
-        // අංකය පිරිසිදු කර ගැනීම
+        // Parse number
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
 
@@ -125,7 +167,7 @@ cmd({
 ╰➤♻️ *RESTART* - Type: .restart
 ╰➤🎭 *CHANGE MODE* - Type: .mode
 ╭━━━━━━━━━━━━━━━━━✦
-┃    🛠️Made with ❤️️ by
+┃    🛠️Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
             return await rush.sendMessage(from, { image: { url: imageUrl }, caption: systemText }, { quoted: mek });
 
@@ -148,44 +190,3 @@ cmd({
         console.error("Error in menu text handler:", err);
     }
 });
-
-// Main .menu Command
-cmd(
-  {
-    pattern: "menu",
-    react: "⚙️",
-    filename: __filename,
-  },
-  async (rush, mek, m, { from, reply }) => {
-    try {
-      const menuText =
-`╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
-┃     💠 *Ｍ 🇦 Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨*     ┃
-┃━━━━━━━━━━━━━━━━━━━✦
-│
-├─ 1️⃣ ⭔ *DOWNLOAD MENU*
-├─ 2️⃣ ⭔ *LOGO MENU*
-├─ 3️⃣ ⭔ *SEARCH MENU*
-├─ 4️⃣ ⭔ *CREATOR INFO*
-├─ 5️⃣ ⭔ *GROUP MENU*
-├─ 6️⃣ ⭔ *SYSTEM MENU*
-├─ 7️⃣ ⭔ *OTHER MENU*
-│
-╰➤ 💡 *Reply with a number (1-7) to get menu!*
-╭━━━━━━━━━━━━━━━━━━━✦
-┃ ⚙️ Made with ❤️ by
-╰─ ${config.OWNER_NAME}🔥`.trim();
-
-      const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
-
-      await rush.sendMessage(from, {
-        image: { url: imageUrl },
-        caption: menuText,
-      }, { quoted: mek });
-
-    } catch (err) {
-      console.error("Error in .menu command:", err);
-      reply("❌ Error generating menu.");
-    }
-  }
-);
