@@ -47,18 +47,20 @@ cmd({
     on: "text"
 }, async (rush, mek, m, { from, body }) => {
     try {
-        // Check if message is a reply
-        if (!m.quoted) return;
-
-        // Get quoted text safely
-        const quotedText = m.quoted.msg || m.quoted.text || m.quoted.caption || "";
+        // Check if message is a reply to another message
+        if (!m.message.extendedTextMessage || !m.message.extendedTextMessage.contextInfo) return;
+        
+        const contextInfo = m.message.extendedTextMessage.contextInfo;
+        const quotedText = contextInfo.quotedMessage?.conversation || 
+                          contextInfo.quotedMessage?.extendedTextMessage?.text || 
+                          contextInfo.quotedMessage?.imageMessage?.caption || "";
         
         // Check if user is replying to the Main Menu
         if (!quotedText.includes("Ｍ Ａ Ｉ 🇳 - 𝗠 𝗘 𝗡 𝗨") && !quotedText.includes("MAIN - MENU")) return;
 
         // Parse number
         const choice = parseInt(body.trim());
-        if (isNaN(choice)) return;
+        if (isNaN(choice) || choice < 1 || choice > 7) return;
 
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
