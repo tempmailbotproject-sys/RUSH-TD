@@ -7,9 +7,13 @@ cmd({
     try {
         if (!m.quoted) return;
 
+        // Quoted පණිවිඩයේ ටෙක්ස්ට් එක ලබා ගැනීම
         const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        
+        // Main Menu එකට පමණක් අංක ක්‍රියාත්මක වන සේ පරීක්ෂා කිරීම
         if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
 
+        // යැවූ අංකය පිරිසිදු කර අංකයක් බව තහවුරු කර ගැනීම
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
 
@@ -20,7 +24,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "📥", key: mek.key } });
             const downloadText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨   ┃
+┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨    ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎶 *SONG* - Type: .song
 ╰➤🎼 *TIK TOK* - Type: .tt
@@ -39,7 +43,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
             const logoText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                ┃
+┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                   ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤🎨 *Naruto* - Type: .naruto
 ╰➤🎨 *Dragonball* - Type: .dragonball
@@ -112,7 +116,7 @@ cmd({
             await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
             const systemText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
-┃     🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
+┃      🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
 ┃━━━━━━━━━━━━━━━━━✦
 ╰➤⚙️ *MENU* - Type: .menu
 ╰➤👀 *ALIVE* - Type: .alive
@@ -140,7 +144,7 @@ cmd({
         }
 
     } catch (err) {
-        console.error(err);
+        console.error("Error in menu text handler:", err);
     }
 });
 
@@ -155,7 +159,7 @@ cmd(
     try {
       const menuText =
 `╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
-┃     💠 *Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*     ┃
+┃     💠 *Ｍ Ａ Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨*     ┃
 ┃━━━━━━━━━━━━━━━━━━━✦
 │
 ├─ 1️⃣ ⭔ *DOWNLOAD MENU*
@@ -179,7 +183,7 @@ cmd(
       }, { quoted: mek });
 
     } catch (err) {
-      console.error(err);
+      console.error("Error in .menu command:", err);
       reply("❌ Error generating menu.");
     }
   }
