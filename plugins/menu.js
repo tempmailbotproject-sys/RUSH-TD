@@ -42,32 +42,48 @@ cmd(
   }
 );
 
-// 2. Number Reply Handler using standard text check
+// 2. Number Reply Handler - fixed to work reliably with Baileys
 cmd({
-    on: "text"
+  on: "text"
 }, async (rush, mek, m, { from, body }) => {
-    try {
-        // Check if message is a reply to another message
-        if (!m.message.extendedTextMessage || !m.message.extendedTextMessage.contextInfo) return;
-        
-        const contextInfo = m.message.extendedTextMessage.contextInfo;
-        const quotedText = contextInfo.quotedMessage?.conversation || 
-                          contextInfo.quotedMessage?.extendedTextMessage?.text || 
-                          contextInfo.quotedMessage?.imageMessage?.caption || "";
-        
-        // Check if user is replying to the Main Menu
-        if (!quotedText.includes("Ｍ Ａ Ｉ 🇳 - 𝗠 𝗘 𝗡 𝗨") && !quotedText.includes("MAIN - MENU")) return;
+  try {
+    let quotedText = "";
 
-        // Parse number
-        const choice = parseInt(body.trim());
-        if (isNaN(choice) || choice < 1 || choice > 7) return;
+    // Method 1: m.quoted (works in newer Baileys)
+    if (m.quoted) {
+      quotedText =
+        m.quoted.msg ||
+        m.quoted.text ||
+        m.quoted.caption ||
+        "";
+    }
 
-        const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
+    // Method 2: extendedTextMessage contextInfo (older Baileys)
+    if (!quotedText && m.message?.extendedTextMessage?.contextInfo?.quotedMessage) {
+      const quotedMsg = m.message.extendedTextMessage.contextInfo.quotedMessage;
+      quotedText =
+        quotedMsg.conversation ||
+        quotedMsg.extendedTextMessage?.text ||
+        quotedMsg.imageMessage?.caption ||
+        quotedMsg.videoMessage?.caption ||
+        "";
+    }
 
-        // 1️⃣ DOWNLOAD MENU
-        if (choice === 1) {
-            await rush.sendMessage(from, { react: { text: "📥", key: mek.key } });
-            const downloadText = 
+    // If no quoted message, ignore
+    if (!quotedText) return;
+
+    // Check if replying to the main menu
+    if (!quotedText.includes("Ｍ Ａ Ｉ 🇳 - 𝗠 𝗘 𝗡 𝗨")) return;
+
+    const choice = parseInt(body.trim());
+    if (isNaN(choice) || choice < 1 || choice > 7) return;
+
+    const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
+
+    // 1️⃣ DOWNLOAD MENU
+    if (choice === 1) {
+      await rush.sendMessage(from, { react: { text: "📥", key: mek.key } });
+      const downloadText =
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
 ┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨    ┃
 ┃━━━━━━━━━━━━━━━━━✦
@@ -81,12 +97,12 @@ cmd({
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    📥Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: downloadText }, { quoted: mek });
+      return await rush.sendMessage(from, { image: { url: imageUrl }, caption: downloadText }, { quoted: mek });
 
-        // 2️⃣ LOGO MENU
-        } else if (choice === 2) {
-            await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
-            const logoText = 
+      // 2️⃣ LOGO MENU
+    } else if (choice === 2) {
+      await rush.sendMessage(from, { react: { text: "🎨", key: mek.key } });
+      const logoText =
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
 ┃    💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨                    ┃
 ┃━━━━━━━━━━━━━━━━━✦
@@ -104,12 +120,12 @@ cmd({
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    📥Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: logoText }, { quoted: mek });
+      return await rush.sendMessage(from, { image: { url: imageUrl }, caption: logoText }, { quoted: mek });
 
-        // 3️⃣ SEARCH MENU
-        } else if (choice === 3) {
-            await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
-            const searchText = 
+      // 3️⃣ SEARCH MENU
+    } else if (choice === 3) {
+      await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
+      const searchText =
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
 ┃    💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨           ┃
 ┃━━━━━━━━━━━━━━━━━✦
@@ -117,12 +133,12 @@ cmd({
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    📥Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: searchText }, { quoted: mek });
+      return await rush.sendMessage(from, { image: { url: imageUrl }, caption: searchText }, { quoted: mek });
 
-        // 4️⃣ OWNER INFO
-        } else if (choice === 4) {
-            await rush.sendMessage(from, { react: { text: "👑", key: mek.key } });
-            const ownerText = 
+      // 4️⃣ OWNER INFO
+    } else if (choice === 4) {
+      await rush.sendMessage(from, { react: { text: "👑", key: mek.key } });
+      const ownerText =
 `╭─ 👑 *${config.BOT_NAME} Creator Info* 👑
 │
 │👤 *NAME:* RAMESH DISSANAYAKA
@@ -131,13 +147,13 @@ cmd({
 ╰───────────────⬣
 🚀 Powered By
 ╰─ ${config.OWNER_NAME}🔥`;
-            const ownerImg = "https://github.com/rush1617/RUSH-TD/blob/main/images/Ramesh%20Dissanayaka.jpg?raw=true";
-            return await rush.sendMessage(from, { image: { url: ownerImg }, caption: ownerText }, { quoted: mek });
+      const ownerImg = "https://github.com/rush1617/RUSH-TD/blob/main/images/Ramesh%20Dissanayaka.jpg?raw=true";
+      return await rush.sendMessage(from, { image: { url: ownerImg }, caption: ownerText }, { quoted: mek });
 
-        // 5️⃣ GROUP MENU
-        } else if (choice === 5) {
-            await rush.sendMessage(from, { react: { text: "👥", key: mek.key } });
-            const groupText = 
+      // 5️⃣ GROUP MENU
+    } else if (choice === 5) {
+      await rush.sendMessage(from, { react: { text: "👥", key: mek.key } });
+      const groupText =
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
 ┃    👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨              ┃
 ┃━━━━━━━━━━━━━━━━━✦
@@ -154,12 +170,12 @@ cmd({
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    📥Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: groupText }, { quoted: mek });
+      return await rush.sendMessage(from, { image: { url: imageUrl }, caption: groupText }, { quoted: mek });
 
-        // 6️⃣ SYSTEM MENU
-        } else if (choice === 6) {
-            await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
-            const systemText = 
+      // 6️⃣ SYSTEM MENU
+    } else if (choice === 6) {
+      await rush.sendMessage(from, { react: { text: "🛠️", key: mek.key } });
+      const systemText =
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
 ┃      🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
 ┃━━━━━━━━━━━━━━━━━✦
@@ -171,12 +187,12 @@ cmd({
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    🛠️Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: systemText }, { quoted: mek });
+      return await rush.sendMessage(from, { image: { url: imageUrl }, caption: systemText }, { quoted: mek });
 
-        // 7️⃣ OTHER MENU
-        } else if (choice === 7) {
-            await rush.sendMessage(from, { react: { text: "📂", key: mek.key } });
-            const otherText = 
+      // 7️⃣ OTHER MENU
+    } else if (choice === 7) {
+      await rush.sendMessage(from, { react: { text: "📂", key: mek.key } });
+      const otherText =
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
 ┃    📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨              ┃
 ┃━━━━━━━━━━━━━━━━━✦
@@ -185,10 +201,10 @@ cmd({
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    📂Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
-            return await rush.sendMessage(from, { image: { url: imageUrl }, caption: otherText }, { quoted: mek });
-        }
-
-    } catch (err) {
-        console.error("Error in menu text handler:", err);
+      return await rush.sendMessage(from, { image: { url: imageUrl }, caption: otherText }, { quoted: mek });
     }
+
+  } catch (err) {
+    console.error("Error in menu text handler:", err);
+  }
 });
