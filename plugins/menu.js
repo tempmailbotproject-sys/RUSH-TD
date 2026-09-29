@@ -1,21 +1,23 @@
 const { cmd } = require("../command");
 const config = require('../config');
 
-// 1. Reply Handler (When user replies with a number to the Main Menu)
 cmd({
-    filter: (text, { message }) => {
-        if (!message.quoted) return false;
-        const quotedText = message.quoted.text || message.quoted.caption || message.quoted.conversation || "";
-        // Check if the quoted message is the Main Menu
-        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨") && !quotedText.includes("MAIN - MENU")) return false;
-        
-        // Check if the body text is a valid number between 1 and 7
-        const choice = parseInt(text.trim());
-        return !isNaN(choice) && choice >= 1 && choice <= 7;
-    }
-}, async (rush, mek, m, { from, body, reply, sender }) => {
+    on: "text"
+}, async (rush, mek, m, { from, body }) => {
     try {
+        // m.quoted තියෙනවද බලන්න (lib/msg.js එකෙන් හැදුණු m object එක පාවිච්චි කරමු)
+        if (!m.quoted) return;
+
+        // Quoted පණිවිඩයේ ටෙක්ස්ට් එක ලබා ගැනීම
+        const quotedText = m.quoted.msg || m.quoted.text || m.quoted.caption || "";
+        
+        // Main Menu එකටම රිප්ලයි කරලා තියෙනවද බැලීම
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨") && !quotedText.includes("MAIN - MENU")) return;
+
+        // අංකය පිරිසිදු කර ගැනීම
         const choice = parseInt(body.trim());
+        if (isNaN(choice)) return;
+
         const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
 
         // 1️⃣ DOWNLOAD MENU
@@ -104,7 +106,7 @@ cmd({
 ╰➤⬇️ *Demote:* .demote
 ╰➤⚠️ *Open Group:* .open
 ╰➤⚠️ *Close Group:* .close
-╰➤♻️️ *Reset Invite Link:* .revoke
+╰➤♻️ *Reset Invite Link:* .revoke
 ╭━━━━━━━━━━━━━━━━━✦
 ┃    📥Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`;
@@ -123,7 +125,7 @@ cmd({
 ╰➤♻️ *RESTART* - Type: .restart
 ╰➤🎭 *CHANGE MODE* - Type: .mode
 ╭━━━━━━━━━━━━━━━━━✦
-┃    🛠️Made with ❤️ by
+┃    🛠️Made with ❤️️ by
 ╰─ ${config.OWNER_NAME}🔥`;
             return await rush.sendMessage(from, { image: { url: imageUrl }, caption: systemText }, { quoted: mek });
 
@@ -143,11 +145,11 @@ cmd({
         }
 
     } catch (err) {
-        console.error("Error in menu reply handler:", err);
+        console.error("Error in menu text handler:", err);
     }
 });
 
-// 2. Main .menu Command
+// Main .menu Command
 cmd(
   {
     pattern: "menu",
@@ -158,7 +160,7 @@ cmd(
     try {
       const menuText =
 `╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
-┃     💠 *Ｍ Ａ Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨*     ┃
+┃     💠 *Ｍ 🇦 Ｉ Ｎ - 𝗠 𝗘 𝗡 𝗨*     ┃
 ┃━━━━━━━━━━━━━━━━━━━✦
 │
 ├─ 1️⃣ ⭔ *DOWNLOAD MENU*
@@ -171,7 +173,7 @@ cmd(
 │
 ╰➤ 💡 *Reply with a number (1-7) to get menu!*
 ╭━━━━━━━━━━━━━━━━━━━✦
-┃ ⚙️ Made with ❤️️ by
+┃ ⚙️ Made with ❤️ by
 ╰─ ${config.OWNER_NAME}🔥`.trim();
 
       const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
