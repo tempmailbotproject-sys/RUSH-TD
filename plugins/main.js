@@ -58,7 +58,7 @@ cmd({
             return await rush.sendMessage(from, { image: { url: imageUrl }, caption: logoText }, { quoted: mek });
 
         // 3️⃣ SEARCH MENU
-        } else if (choice === 3) {
+        } if (choice === 3) {
             await rush.sendMessage(from, { react: { text: "🔍", key: mek.key } });
             const searchText = 
 `╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
