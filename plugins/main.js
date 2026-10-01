@@ -2,14 +2,14 @@ const { cmd } = require("../command");
 const config = require('../config');
 
 cmd({
-  filter: (replyText, { sender, message }) => {
-    if (!message || !message.quoted) return false;
-    const quotedText = message.quoted.text || message.quoted.caption || message.quoted.conversation || "";
-    const isMenuReply = quotedText.includes("MAIN - MENU") || quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ");
-    return isMenuReply && /^\d+$/.test(String(replyText).trim());
-  }
-}, async (rush, mek, m, { from, body, reply }) => {
-  try {
+    on: "text"
+}, async (rush, mek, m, { from, body }) => {
+    try {
+        if (!m.quoted) return;
+
+        const quotedText = m.quoted.text || m.quoted.caption || m.quoted.conversation || "";
+        if (!quotedText.includes("Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ") && !quotedText.includes("MAIN - MENU")) return;
+
         const choice = parseInt(body.trim());
         if (isNaN(choice)) return;
 
