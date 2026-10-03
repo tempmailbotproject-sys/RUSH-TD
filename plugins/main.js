@@ -1,6 +1,6 @@
 const { cmd } = require("../command");
+const config = require('../config');
 
-// 1. මේක තමයි Main Menu එක (.menu ගැහුවම එන එක)
 cmd(
   {
     pattern: "menu",
@@ -10,20 +10,22 @@ cmd(
   async (rush, mek, m, { from, reply }) => {
     try {
       const menuText =
-`╭━━━━ ⚡ *RUSH-TD* ⚡ ━━━━╮\n` +
-`┃    💠 *Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*      ┃\n` +
-`┃━━━━━━━━━━━━━━━━━━━✦\n` +
-`╰➤ 1 | 📥 *DOWNLOAD MENU*\n` +
-`╰➤ 2 | 🎨 *LOGO MENU*\n` +
-`╰➤ 3 | 👥 *GROUP MENU*\n` +
-`╰➤ 4 | 🔍 *SEARCH MENU*\n` +
-`╰➤ 5 | 🛠️ *SYSTEM MENU*\n` +
-`╰➤ 6 | 📂 *OTHER MENU*\n` +
-`╰➤ 7 | 👑 *OWNER MENU*\n` +
-`╭━━━━━━━━━━━━━━━━━━━✦\n` +
-`┃ 💡 *Reply to this message with a number*\n` +
-`┃ ⚙️ Made with ❤️ by\n` +
-`╰─🔥 *RAMESH DISSANAYAKA* 🔥\n`;
+`╭━━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━━╮
+┃    💠 *Ｍ Ａ Ｉ Ｎ - Ｍ Ｅ Ｎ Ｕ*      ┃
+┃━━━━━━━━━━━━━━━━━━━✦
+│
+├─ 1️⃣ 📥 *DOWNLOAD MENU*
+├─ 2️⃣ 🎨 *LOGO MENU*
+├─ 3️⃣ 👥 *GROUP MENU*
+├─ 4️⃣ 🔍 *SEARCH MENU*
+├─ 5️⃣ 🛠️ *SYSTEM MENU*
+├─ 6️⃣ 📂 *OTHER MENU*
+├─ 7️⃣ 👑 *OWNER MENU*
+│
+╰➤ 💡 Reply with a number (1-7) to get menu!
+╭━━━━━━━━━━━━━━━━━━━✦
+┃ ⚙️ Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`.trim();
 
       const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/main-menu.png?raw=true";
 
@@ -39,19 +41,15 @@ cmd(
   }
 );
 
-// 2. මේක තමයි අංක වලට Reply කරාම වැඩ කරන කොටස
 cmd(
   {
-    // pattern එකක් නැතුව filter එකක් දුන්නම මේක replyHandler එකක් විදියට වැඩ කරනවා
     filter: (text, data) => {
       if (!text) return false;
       const num = text.trim();
       const validNumbers = ["1", "2", "3", "4", "5", "6", "7"];
       
-      // Reply කරපු message එකක්ද කියලා check කරනවා
       const isReply = data.message?.message?.extendedTextMessage?.contextInfo?.stanzaId;
       
-      // Reply එකක් වෙන්නත් ඕනේ, 1-7 අතර අංකයක් වෙන්නත් ඕනේ
       return Boolean(isReply && validNumbers.includes(num));
     }
   },
@@ -62,125 +60,152 @@ cmd(
       let imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true";
       let reaction = "";
 
-      // අංකය අනුව අදාළ මෙනු එක තෝරනවා
       switch (choice) {
         case "1":
           reaction = "📥";
           subMenuText = 
-`╭━━━ ⚡ *RUSH-TD* ⚡ ━━━╮\n` +
-`┃  💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨  ┃\n` +
-`┃━━━━━━━━━━━━━━━━━✦\n` +
-`╰➤🎶 *SONG* - Type: .song\n` +
-`╰➤🎼 *TIK TOK* - Type: .tt\n` +
-`╰➤📼 *YOUTUBE* - Type: .yt\n` +
-`╰➤📘 *FACEBOOK* - Type: .fb\n` +
-`╰➤📍 *APK* - Type: .apk\n` +
-`╰➤🖼️ *WALLPAPER* - Type: .wp\n` +
-`╰➤📌 *PINTEREST* - Type: .pin\n` +
-`╭━━━━━━━━━━━━━━━━━✦\n` +
-`┃  📥Made with ❤️ by\n` +
-`╰─🔥 *RAMESH DISSANAYAKA* 🔥\n`;
+`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
+┃    💠 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗 - 𝗠𝗘𝗡𝗨   ┃
+┃━━━━━━━━━━━━━━━━━✦
+╰➤🎶 *SONG* - Type: .song
+╰➤🎼 *TIK TOK* - Type: .tt
+╰➤📼 *YOUTUBE* - Type: .yt
+╰➤📘 *FACEBOOK* - Type: .fb
+╰➤📍 *APK* - Type: .apk
+╰➤🖼️ *WALLPAPER* - Type: .wp
+╰➤📌 *PINTEREST* - Type: .pin
+╭━━━━━━━━━━━━━━━━━✦
+┃    📥Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`;
           break;
 
         case "2":
           reaction = "🎨";
           subMenuText = 
-`╭━━━ ⚡ *RUSH-TD* ⚡ ━━━╮\n` +
-`┃  💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨               ┃\n` +
-`┃━━━━━━━━━━━━━━━━━✦\n` +
-`╰➤🎨*Naruto* - Type: .naruto\n` +
-`╰➤🎨*Dragonball* - Type: .dragonball\n` +
-`╰➤🎨*Onepiece* - Type: .onepiece\n` +
-`╰➤🎨*3DComic* - Type: .3dcomic\n` +
-`╰➤🎨*Marvel* - Type: .marvel\n` +
-`╰➤🎨*Neon* - Type: .neon\n` +
-`╰➤🎨*Graffiti* - Type: .graffiti\n` +
-`╰➤🎨*Space* - Type: .space\n` +
-`╭━━━━━━━━━━━━━━━━━✦\n` +
-`┃  📥Made with ❤️ by\n` +
-`╰─🔥 *RAMESH DISSANAYAKA* 🔥\n`; // දිග වැඩි නිසා logo ටිකක් අඩු කරලා තියෙන්නේ, ඔයාට ඕන නම් ඉතුරු ටික මෙතනට add කරගන්න.
+`╭━━━ ⚡  ${config.BOT_NAME} ⚡ ━━━╮
+┃  💠 𝗟𝗢𝗚𝗢 - 𝗠𝗘𝗡𝗨               ┃
+┃━━━━━━━━━━━━━━━━━✦
+╰➤🎨*Naruto* - Type: .naruto
+╰➤🎨*Dragonball* - Type: .dragonball
+╰➤🎨*Onepiece* - Type: .onepiece
+╰➤🎨*3DComic* - Type: .3dcomic
+╰➤🎨*Marvel* - Type: .marvel
+╰➤🎨*Deadpool* - Type: .deadpool
+╰➤🎨*Blackpink* - Type: .blackpink
+╰➤🎨*HarryPotter* - Type: .harrypotter
+╰➤🎨*Neon* - Type: .neon
+╰➤🎨*Glitch* - Type: .glitch
+╰➤🎨*Rainbow* - Type: .rainbow
+╰➤🎨*Glass* - Type: .glass
+╰➤🎨*Frosted Glass* - Type: .frostedglass
+╰➤🎨*Neon Glass* - Type: .neonglass
+╰➤🎨*Gold* - Type: .gold
+╰➤🎨*Silver* - Type: .silver
+╰➤🎨*Diamond* - Type: .diamond
+╰➤🎨*Fire* - Type: .fire
+╰➤🎨*Water* - Type: .water
+╰➤🎨*Smoke* - Type: .smoke
+╰➤🎨*Ice* - Type: .ice
+╰➤🎨*Crystal* - Type: .crystal
+╰➤🎨*Luxury* - Type: .luxury
+╰➤🎨*Modern* - Type: .modern
+╰➤🎨*Christmas* - Type: .christmas
+╰➤🎨*Halloween* - Type: .halloween
+╰➤🎨*Graffiti* - Type: .graffiti
+╰➤🎨*Sand* - Type: .sand
+╰➤🎨*Sky* - Type: .sky
+╰➤🎨*Space* - Type: .space
+╭━━━━━━━━━━━━━━━━━✦
+┃  📥Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`;
           break;
 
         case "3":
           reaction = "👥";
           subMenuText = 
-`╭━━━ ⚡ *RUSH-TD* ⚡ ━━━╮\n` +
-`┃  👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨            ┃\n` +
-`┃━━━━━━━━━━━━━━━━━✦\n` +
-`╰➤👢𝙺𝚒𝚌𝚔 𝚞𝚜𝚎𝚛: .kick\n` +
-`╰➤📢 𝚃𝚊𝚐 𝚊𝚕𝚕: .tagall\n` +
-`╰➤⬆️ 𝙿𝚛𝚘𝚖𝚘𝚝𝚎: .promote\n` +
-`╰➤⬇️ 𝙳𝚎𝚖𝚘𝚝𝚎: .demote\n` +
-`╰➤⚠️ 𝙾𝚙𝚎𝚗/𝙲𝚕𝚘𝚜𝚎: .open / .close\n` +
-`╰➤♻️ 𝚁𝚎𝚟𝚘𝚔𝚎: .revoke\n` +
-`╭━━━━━━━━━━━━━━━━━✦\n` +
-`┃  📥Made with ❤️ by\n` +
-`╰─🔥 RAMESH DISSANAYAKA 🔥\n`;
+`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
+┃  👥 𝗚𝗥𝗢𝗨𝗣 - 𝗠𝗘𝗡𝗨            ┃
+┃━━━━━━━━━━━━━━━━━✦
+╰➤👢𝙺𝚒𝚌𝚔 𝚞𝚜𝚎𝚛 𝚏𝚛𝚘𝚖 𝚐𝚛𝚘𝚞𝚙: .kick
+╰➤📢 𝚃𝚊𝚐 𝚊𝚕𝚕 𝚐𝚛𝚘𝚞𝚙 𝚖𝚎𝚖𝚋𝚎𝚛𝚜: .tagall
+╰➤🖼️ 𝚂𝚎𝚝 𝚐𝚛𝚘𝚞𝚙 𝚙𝚛𝚘𝚏𝚒𝚕𝚎 𝚙𝚒𝚌𝚝𝚞𝚛𝚎: .setup
+╰➤👑 𝙻𝚒𝚜𝚝 𝚊𝚕𝚕 𝚐𝚛𝚘𝚞𝚙 𝚊𝚍𝚖𝚒𝚗𝚜: .admins
+╰➤➕ 𝙰𝚍𝚍 𝚊 𝚞𝚜𝚎𝚛 𝚝𝚘 𝚝𝚑𝚎 𝚐𝚛𝚘𝚞𝚙: .add
+╰➤⬆️ 𝙿𝚛𝚘𝚖𝚘𝚝𝚎 𝚞𝚜𝚎𝚛 𝚝𝚘 𝚊𝚍𝚖𝚒𝚗: .promote
+╰➤⬇️ 𝙳𝚎𝚖𝚘𝚝𝚎 𝚊𝚍𝚖𝚒𝚗 𝚝𝚘 𝚖𝚎𝚖𝚋𝚎𝚛: .demote
+╰➤⚠️ 𝙰𝚕𝚕𝚘𝚠 𝚎𝚟𝚎𝚛𝚢𝚘𝚗𝚎 𝚝𝚘 𝚜𝚎𝚗𝚍 𝚖𝚎𝚜𝚜𝚊𝚐𝚎 𝚒𝚗 𝚝𝚑𝚎 𝚐𝚛𝚘𝚞𝚙: .open
+╰➤⚠️ 𝚂𝚎𝚝 𝚐𝚛𝚘𝚞𝚙 𝚌𝚑𝚊𝚝 𝚝𝚘 𝚊𝚍𝚖𝚒𝚗-𝚘𝚗𝚕𝚢 𝚖𝚎𝚜𝚜𝚊𝚐𝚎: .close
+╰➤♻️ 𝚁𝚎𝚜𝚎𝚝 𝚐𝚛𝚘𝚞𝚙 𝚒𝚗𝚟𝚒𝚝𝚎 𝚕𝚒𝚗𝚔: .revoke
+╰➤✏️ 𝙲𝚑𝚊𝚗𝚐𝚎 𝚐𝚛𝚘𝚞𝚙 𝚗𝚊𝚖𝚎: .setsubject
+╰➤📝 𝙲𝚑𝚊𝚗𝚐𝚎 𝚐𝚛𝚘𝚞𝚙 𝚍𝚎𝚜𝚌𝚛𝚒𝚙𝚝𝚒𝚘𝚗: .setdesc
+╰➤📄𝚂𝚑𝚘𝚠 𝚐𝚛𝚘𝚞𝚙 𝚍𝚎𝚝𝚊𝚒𝚕𝚜: .ginfo
+╭━━━━━━━━━━━━━━━━━✦
+┃  📥Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`;
           break;
 
         case "4":
           reaction = "🔍";
           subMenuText = 
-`╭━━━ ⚡ *RUSH-TD* ⚡ ━━━╮\n` +
-`┃  💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨          ┃\n` +
-`┃━━━━━━━━━━━━━━━━━✦\n` +
-`╰➤🔍 *YouTube Search* - Type: .yts\n` +
-`╭━━━━━━━━━━━━━━━━━✦\n` +
-`┃  📥Made with ❤️ by\n` +
-`╰─🔥 *RAMESH DISSANAYAKA* 🔥\n`;
+`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
+┃  💠 𝗦𝗘𝗔𝗥𝗖𝗛 - 𝗠𝗘𝗡𝗨          ┃
+┃━━━━━━━━━━━━━━━━━✦
+╰➤🔍 *YouTube Search* - Type: .yts
+╭━━━━━━━━━━━━━━━━━✦
+┃  📥Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`;
           break;
 
         case "5":
           reaction = "🛠️";
           subMenuText = 
-`╭━━━ ⚡ *RUSH-TD* ⚡ ━━━╮\n` +
-`┃    🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃\n` +
-`┃━━━━━━━━━━━━━━━━━✦\n` +
-`╰➤⚙️ *MENU* - Type: . menu\n` +
-`╰➤👀 *ALIVE* - Type: .alive\n` +
-`╰➤🤖 *BOT* - Type: .bot\n` +
-`╰➤♻️ *RESTART* - Type: .restart\n` +
-`╰➤🎭 *CHANGE MODE* - Type: .mode\n` +
-`╭━━━━━━━━━━━━━━━━━✦\n` +
-`┃  🛠️Made with ❤️ by\n` +
-`╰─🔥 *RAMESH DISSANAYAKA* 🔥\n`;
+`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
+┃    🛠️ 𝗦𝗬𝗦𝗧𝗘𝗠-𝗠𝗘𝗡𝗨            ┃
+┃━━━━━━━━━━━━━━━━━✦
+╰➤⚙️ *MENU* - Type: . menu
+╰➤👀 *ALIVE* - Type: .alive
+╰➤🤖 *BOT* - Type: .bot
+╰➤♻️ *RESTART* - Type: .restart
+╰➤🎭 *CHANGE MODE* - Type: .mode
+╭━━━━━━━━━━━━━━━━━✦
+┃  🛠️Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`;
           break;
 
         case "6":
           reaction = "📂";
           subMenuText = 
-`╭━━━ ⚡ *RUSH-TD* ⚡ ━━━╮\n` +
-`┃  📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨              ┃\n` +
-`┃━━━━━━━━━━━━━━━━━✦\n` +
-`╰➤💾 Saves View Once: .sv\n` +
-`╰➤📸 Get profile pic: .dp\n` +
-`╭━━━━━━━━━━━━━━━━━✦\n` +
-`┃  📂Made with ❤️ by\n` +
-`╰─🔥 *RAMESH DISSANAYAKA* 🔥\n`;
+`╭━━━ ⚡ ${config.BOT_NAME} ⚡ ━━━╮
+┃  📂 𝗢𝗧𝗛𝗘𝗥 - 𝗠𝗘𝗡𝗨              ┃
+┃━━━━━━━━━━━━━━━━━✦
+╰➤💾 Saves View Once: .sv
+╰➤📸 Get profile pic: .dp
+╭━━━━━━━━━━━━━━━━━✦
+┃  📂Made with ❤️ by
+╰─ ${config.OWNER_NAME}🔥`;
           break;
 
         case "7":
           reaction = "👑";
           subMenuText = 
-`╭─ 👑 *RUSH-TD Owner Info* 👑\n` +
-`│\n` +
-`│👤 *NAME:* RAMESH DISSANAYAKA\n` +
-`│🌍 *Location:* Sri Lanka🇱🇰 \n` +
-`│📱 *WhatsApp:* +94775938007 \n` +
-`╰───────────────⬣\n` +
-`🚀 Powered By\n` +
-`*RAMESH DISSANAYAKA* 🔥\n`;
-          // Owner menu එකට විතරක් වෙනම photo එකක් දාමු
+`╭─ 👑 *${config.BOT_NAME} Owner Info* 👑
+│
+│👤 *NAME:* 𝐑𝐚𝐦𝐞𝐬𝐡 𝐃𝐢𝐬𝐬𝐚𝐧𝐚𝐲𝐚𝐤𝐚
+│🌍 *Location:* Sri Lanka🇱🇰
+│📱 *WhatsApp:* +94775938007
+╰───────────────⬣
+🚀 Powered By
+╰─ 𝐑𝐚𝐦𝐞𝐬𝐡 𝐃𝐢𝐬𝐬𝐚𝐧𝐚𝐲𝐚𝐤𝐚🔥`;
+      
           imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Ramesh%20Dissanayaka.jpg?raw=true";
           break;
       }
 
-      // අදාළ මෙනු එක තියෙනවා නම් ඒක යවනවා
       if (subMenuText) {
-        // අංකය reply කරපු මැසේජ් එකට අදාළ Reaction එක දානවා
+      
         await rush.sendMessage(from, { react: { text: reaction, key: mek.key } });
 
-        // අදාළ Sub Menu එක යවනවා
+
         await rush.sendMessage(from, {
           image: { url: imageUrl },
           caption: subMenuText,
