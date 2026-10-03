@@ -140,8 +140,8 @@ const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Col
 │ 🕒 *TIME:* ${currentTime}
 │ ⚠️ *RECOVERED BY:* ${config.BOT_NAME}
 ╰───────────────⬣
-💖 Made with passion by
-╰━ ${config.OWNER_NAME}🔥`;
+│ 💖 Made with passion by
+╰━${config.OWNER_NAME}🔥`;
 
       try {
         const mediaPath = mediaStore.get(keyId);
