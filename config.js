@@ -7,24 +7,13 @@ function convertToBool(text, fault = 'true') {
 module.exports = {
   SESSION_ID: "LJFXQKLa#y68U-YRHTTYc0__Wzqyto4UHFoj3lLbBXjrNCQ0Xriw", // Put your session id here
   ALIVE_IMG: "https://github.com/rush1617/RUSH-TD/blob/main/images/Alive.png?raw=true",
-  ALIVE_MSG: `╔═══◉ *🟢 STATUS: ONLINE* ◉═══╗\n` +
-`║  𝙷𝚎𝚢 𝙳𝚞𝚍𝚎, 𝙸’𝚖 𝚑𝚎𝚛𝚎 𝚝𝚘 𝚑𝚎𝚕𝚙 𝚢𝚘𝚞. \n` +
-`║  𝙰𝚜𝚔 𝚖𝚎 𝚊𝚗𝚢𝚝𝚑𝚒𝚗𝚐! 💬\n` +
-`╚══════════════════════╝\n` +
-
-`🧾 *PROFILE INFORMATION*\n` +
-`┌──────── ⋆⋅☆⋅⋆ ────────┐\n` +
-`│ 🔐 *Owner:* Ramesh Dissanayaka\n` + 
-`│ 👤 *Botname:* RUSH-TD\n` + 
-`│ ⚡ *Bio:* Powerful WhatsApp Bot\n` + 
-`│ 🧩 *Role:* Wizard Lord 🧙‍♂️ \n` +
-`└──────── ⋆⋅☆⋅⋆ ────────┘\n` +
-
-`🚀 Powered By *RAMESH*
-*DISSANAYAKA* 🔥\n`, // Change alive msg from here
+    
+  BOT_NAME: process.env.BOT_NAME || "𝐑𝐔𝐒𝐇-𝐓𝐃",
+  OWNER_NAME: process.env.OWNER_NAME || "𝐑𝐚𝐦𝐞𝐬𝐡 𝐃𝐢𝐬𝐬𝐚𝐧𝐚𝐲𝐚𝐤𝐚",
+  VERSION: process.env.VERSION || "𝟏.𝟎.𝟎",
   BOT_OWNER: "94789196832", // Replace your bot owner number here with 94(country code)
   AUTO_STATUS_SEEN: 'true',
   AUTO_STATUS_REACT: 'true',
-MODE: process.env.MODE || "public", //public,private,group
+  MODE: process.env.MODE || "public", //public,private,group
 
 };
