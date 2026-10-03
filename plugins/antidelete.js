@@ -141,7 +141,7 @@ const currentTime = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Col
 │ ⚠️ *RECOVERED BY:* ${config.BOT_NAME}
 ╰───────────────⬣
 │ 💖 Made with passion by
-╰━${config.OWNER_NAME}🔥`;
+╰━ ${config.OWNER_NAME}🔥`;
 
       try {
         const mediaPath = mediaStore.get(keyId);
