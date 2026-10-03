@@ -92,12 +92,10 @@ cmd(
 ╰➤🎨*Marvel* - Type: .marvel
 ╰➤🎨*Deadpool* - Type: .deadpool
 ╰➤🎨*Blackpink* - Type: .blackpink
-╰➤🎨*HarryPotter* - Type: .harrypotter
 ╰➤🎨*Neon* - Type: .neon
 ╰➤🎨*Glitch* - Type: .glitch
 ╰➤🎨*Rainbow* - Type: .rainbow
 ╰➤🎨*Glass* - Type: .glass
-╰➤🎨*Frosted Glass* - Type: .frostedglass
 ╰➤🎨*Neon Glass* - Type: .neonglass
 ╰➤🎨*Gold* - Type: .gold
 ╰➤🎨*Silver* - Type: .silver
@@ -194,7 +192,7 @@ cmd(
 │🌍 *Location:* Sri Lanka🇱🇰
 │📱 *WhatsApp:* +94775938007
 ╰───────────────⬣
-🚀 Powered By
+│ 🚀 Powered By
 ╰─ 𝐑𝐚𝐦𝐞𝐬𝐡 𝐃𝐢𝐬𝐬𝐚𝐧𝐚𝐲𝐚𝐤𝐚🔥`;
       
           imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/Ramesh%20Dissanayaka.jpg?raw=true";
