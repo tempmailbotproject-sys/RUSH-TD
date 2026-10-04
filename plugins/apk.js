@@ -29,7 +29,7 @@ cmd(
       
       const caption =
 `╭━━━🌟𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢🌟━━━╮
-┃            ${config.BOT_NAME}               ┃
+┃             ${config.BOT_NAME}                ┃
 ┃━━━━━━━━━━━━━━━━━━━━✦
 ┃🪬𝗔𝗣𝗞 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥🪬
 ╭━━━━━━━━━━━━━━━━━━━━✦
@@ -57,7 +57,7 @@ cmd(
 
       await test.sendMessage(from, { react: { text: "📍", key: mek.key } });
 
-return reply("✅ *Thank you for using ${config.BOT_NAME}! Enjoy* 💖");
+return reply(`✅ *Thank you for using ${config.BOT_NAME}! Enjoy* 💖`);
       
     } catch (err) {
       console.error("❌ APK Downloader Error:", err);
