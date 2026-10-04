@@ -36,7 +36,7 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
 `*Please: 1. Mention a user, 2. Reply to a message, or 3. Provide a number (.getdp 94xxxxxxxxx)*
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`);
+╰━ ${config.OWNER_NAME}🔥`);
         }
         
         if (!targetJid) {
@@ -44,7 +44,7 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
 `*⚠️ Failed to determine the Target JID.*
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`);
+╰━ ${config.OWNER_NAME}🔥`);
         }
         
         await rush.sendMessage(from, { react: { text: "📸", key: mek.key } });
@@ -58,7 +58,7 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
 `*❌ Could not find ${targetJid.split('@')[0]}'s DP or it is set to Private.*
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`);
+╰━ ${config.OWNER_NAME}🔥`);
         }
 
         if (!profilePictureUrl) {
@@ -66,7 +66,7 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
 `*❌ Could not find a DP for ${targetJid.split('@')[0]}.*
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`);
+╰━ ${config.OWNER_NAME}🔥`);
         }
         
         // 3. Resend the Image
@@ -74,7 +74,7 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
 `*✅ ${targetJid.includes('@g.us') ? 'Group' : targetJid.split('@')[0]}'s Profile Picture.*
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`;
+╰━ ${config.OWNER_NAME}🔥`;
 
         await rush.sendMessage(from, {
             image: { url: profilePictureUrl },
@@ -84,7 +84,7 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
 
         await rush.sendMessage(from, { react: { text: '📸', key: mek.key } });
 
-        return reply("✅ *Thank you for using RUSH-TD! Enjoy* 💖");
+        return reply(`✅ *Thank you for using ${config.BOT_NAME}! Enjoy* 💖`);
 
     } catch (e) {
         console.error("--- GETDP ERROR ---", e);
@@ -92,6 +92,6 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
 `*🚨 Error:* ${e.message || e}. Failed to get the DP.
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`);
+╰━ ${config.OWNER_NAME}🔥`);
     }
 });
