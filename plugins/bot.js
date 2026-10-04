@@ -21,7 +21,7 @@ cmd(
 │ 🧩 *Role:* Wizard Lord 🧙‍♂️
 └──────── ⋆⋅☆⋅⋆ ────────┘
 │  🚀 Powered By
-╰━ ${config.OWNER_NAME}🔥``.trim();
+╰━ ${config.OWNER_NAME}🔥`.trim();
 
       const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/RUSH-TD%201.png?raw=true"; // <-- Replace with your image URL
 
