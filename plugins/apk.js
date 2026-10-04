@@ -28,8 +28,8 @@ cmd(
       const appSize = (app.size / 1048576).toFixed(2); 
       
       const caption =
-`╭━━━🌟𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢🌟━━━╮
-┃                    ${config.BOT_NAME}                      ┃
+`╭━━━━〔 *𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢* 〕━━━━➢
+┃       ${config.BOT_NAME}
 ┃━━━━━━━━━━━━━━━✦
 ┃🪬𝗔𝗣𝗞 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥🪬
 ╭━━━━━━━━━━━━━━━✦
