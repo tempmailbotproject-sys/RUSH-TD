@@ -56,8 +56,8 @@ cmd(
       const qualityText = hd ? "HD" : "SD";
 
       const desc = 
-`╭━━━🌟𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢🌟━━━╮
-┃            ®️ *𝗥𝗨𝗦𝗛 -𝗧𝗗* ®️               ┃
+`╭━━━〔 *𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢* 〕━━━➢
+┃              〔 ${config.BOT_NAME} 〕
 ┃━━━━━━━━━━━━━━━━━━━━✦
 ┃✅ *𝗙𝗔𝗖𝗘𝗕𝗢𝗢𝗞 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥*
 ┃━━━━━━━━━━━━━━━━━━━━✦
@@ -65,7 +65,7 @@ cmd(
 ╰➤👻 *Quality:* ${qualityText}
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`;
+╰━ ${config.OWNER_NAME}🔥`;
 
       await rush.sendMessage(
         from,
@@ -87,7 +87,7 @@ cmd(
         { quoted: mek }
       );
 
-      return reply("✅ *Thank you for using RUSH - TD!* 💖");
+      return reply(`✅ *Thank you for using ${config.BOT_NAME}!* 💖`);
     } catch (e) {
       console.error(e);
       reply(`*Error:* ${e.message || e}`);
