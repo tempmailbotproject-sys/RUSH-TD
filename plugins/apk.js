@@ -1,4 +1,4 @@
-
+const config = require('../config');
 const { cmd } = require("../command");
 const axios = require("axios");
 
@@ -29,12 +29,12 @@ cmd(
       
       const caption =
 `╭━━━🌟𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢🌟━━━╮
-┃            ®️ *𝗥𝗨𝗦𝗛 -𝗧𝗗* ®️               ┃
+┃            ${config.BOT_NAME}               ┃
 ┃━━━━━━━━━━━━━━━━━━━━✦
 ┃🪬𝗔𝗣𝗞 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥🪬
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🚀Pow. By
-╰━🔥𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔🔥`;
+╰━ ${config.OWNER_NAME}🔥`;
 
       await test.sendMessage(
         from,
@@ -57,7 +57,7 @@ cmd(
 
       await test.sendMessage(from, { react: { text: "📍", key: mek.key } });
 
-return reply("✅ *Thank you for using RUSH-TD! Enjoy* 💖");
+return reply("✅ *Thank you for using ${config.BOT_NAME}! Enjoy* 💖");
       
     } catch (err) {
       console.error("❌ APK Downloader Error:", err);
