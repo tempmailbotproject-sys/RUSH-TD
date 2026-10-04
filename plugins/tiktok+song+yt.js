@@ -1,4 +1,4 @@
-
+const config = require('../config');
 const { cmd } = require("../command");
 const { ytmp3, ytmp4, tiktok } = require("sadaslk-dlcore");
 const yts = require("yt-search");
@@ -35,13 +35,13 @@ cmd(
       if (!video) return reply("❌ No results found");
 
       const caption =
-`╭━━━🌟𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢🌟━━━╮
-┃            ®️ *𝗥𝗨𝗦𝗛 -𝗧𝗗* ®️               ┃
+`╭━━━〔 *𝗪𝗘𝗟𝗖𝗢𝗠𝗘 𝗧𝗢* 〕━━━➢
+┃              〔 ${config.BOT_NAME} 〕
 ┃━━━━━━━━━━━━━━━━━━━━✦
 ┃🎧 *𝗦𝗢𝗡𝗚 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥* 🎧
 ┃━━━━━━━━━━━━━━━━━━━━✦
 ┃🎼 Let the rhythm guide you... 🎼
-┃🚀 Pow. By RAMESH DISSANAYAKA 🔥
+┃🚀 Pow. By ${config.OWNER_NAME}🔥
 ┃━━━━━━━━━━━━━━━━━━━━✦
 ╰➤🎬 *${video.title}*
 ╰➤👤 *Channel:* ${video.author.name}
@@ -50,7 +50,7 @@ cmd(
 ╰➤🔗 ${video.url}
 ╭━━━━━━━━━━━━━━━━━━━━✦
 ┃🎼Made with ❤️ by
-╰━𝗥𝗔𝗠𝗘𝗦𝗛 𝗗𝗜𝗦𝗦𝗔𝗡𝗔𝗬𝗔𝗞𝗔💫`;
+╰━ ${config.OWNER_NAME}💫`;
 
       await rush.sendMessage(
         from,
@@ -74,7 +74,7 @@ cmd(
         { quoted: mek }
       );
 
-      return reply("✅ *Thank you for using RUSH-TD! Enjoy your music* 🎧💖");
+      return reply(`✅ *Thank you for using ${config.BOT_NAME}! Enjoy your music* 🎧💖`);
     } catch (e) {
       console.log(e);
       reply(`❌ *Error:* ${e.message} 😞`);
