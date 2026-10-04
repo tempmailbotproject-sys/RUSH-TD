@@ -1,3 +1,4 @@
+const config = require('../config');
 const { cmd } = require("../command");
 
 cmd(
@@ -9,21 +10,19 @@ cmd(
   async (rush, mek, m, { from, reply }) => {
     try {
       const downloadText = 
-`╔══◉ 🟢 *STATUS: ONLINE* ◉══╗\n` +
-`║  𝙷𝚎𝚢 𝙳𝚞𝚍𝚎, 𝙸’𝚖 𝚑𝚎𝚛𝚎 𝚝𝚘 𝚑𝚎𝚕𝚙 𝚢𝚘𝚞. \n` +
-`║  𝙰𝚜𝚔 𝚖𝚎 𝚊𝚗𝚢𝚝𝚑𝚒𝚗𝚐! 💬\n` +
-`╚════════════════════╝\n` +
-`🧾 *PROFILE INFORMATION*\n` +
-`┌──────── ⋆⋅☆⋅⋆ ────────┐\n` +
-`│ 🔐 *Owner:* Ramesh Dissanayaka\n` +
-`│ 👤 *Botname:* RUSH-TD\n` +
-`│ ⚡ *Bio:* Powerful WhatsApp Bot\n` +
-`│ 🧩 *Role:* Wizard Lord 🧙‍♂️ \n` +
-`└──────── ⋆⋅☆⋅⋆ ────────┘\n` +
-`🚀 Powered By\n` +
-`*RAMESH DISSANAYAKA* 🔥\n`.trim();
+`╔══◉ 🟢 *STATUS: ONLINE* ◉══╗
+║  𝙷𝚎𝚢 𝙳𝚞𝚍𝚎, 𝙸’𝚖 𝚑𝚎𝚛𝚎 𝚝𝚘 𝚑𝚎𝚕𝚙 𝚢𝚘𝚞.
+╚════════════════════╝
+🧾 *PROFILE INFORMATION*
+┌──────── ⋆⋅☆⋅⋆ ────────┐
+│ 🔐 *Owner:* ${config.OWNER_NAME}
+│ 👤 *Botname:* ${config.BOT_NAME}
+│ ⚡ *Bio:* Powerful WhatsApp Bot
+│ 🧩 *Role:* Wizard Lord 🧙‍♂️
+└──────── ⋆⋅☆⋅⋆ ────────┘
+│  🚀 Powered By
+╰━ ${config.OWNER_NAME}🔥``.trim();
 
-      // Photo eke path eka / url eka denna
       const imageUrl = "https://github.com/rush1617/RUSH-TD/blob/main/images/RUSH-TD%201.png?raw=true"; // <-- Replace with your image URL
 
       await rush.sendMessage(from, {
