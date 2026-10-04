@@ -1,6 +1,6 @@
 const { cmd } = require("../command");
+const config = require('../config');
 
-// 🖼️ GET Profile Picture (DP) Command
 cmd(
 {
     pattern: "getdp",
@@ -14,24 +14,22 @@ async (rush, mek, m, { from, q, reply, isGroup, sender, mentionedJid, args }) =>
     try {
         let targetJid;
         
-        // 1. Determine Target JID
         if (mentionedJid && mentionedJid.length > 0) {
-            // If mentioned
             targetJid = mentionedJid[0];
         } else if (m.quoted) {
-            // If replied
+
             targetJid = m.quoted.sender;
         } else if (isGroup && (q === 'group' || q === 'g')) {
-            // If '.getdp group' is used, fetch Group DP
+
             targetJid = from;
         } else if (!isGroup && !q) {
-            // In Personal Chat without arguments (Chat Partner)
+
             targetJid = from; 
         } else if (isGroup && !q) {
-             // In Group without arguments, fetch sender's DP
+
              targetJid = sender;
         } else if (args.length > 0 && !isNaN(args[0])) {
-            // If a number is provided directly
+
             targetJid = args[0].replace(/[^0-9]/g, '') + '@s.whatsapp.net';
         } else {
              return reply(
