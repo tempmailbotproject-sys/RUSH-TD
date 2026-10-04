@@ -1,3 +1,4 @@
+const config = require('../config');
 const { cmd, commands } = require("../command");
 const getFbVideoInfo = require("@xaviabot/fb-downloader");
 
